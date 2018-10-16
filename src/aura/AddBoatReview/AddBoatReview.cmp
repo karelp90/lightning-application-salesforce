@@ -1,0 +1,44 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    <aura:attribute name="boat" type="Boat__c" />
+
+    <aura:attribute name="newContact" type="Object" />
+    <aura:attribute name="simpleNewContact" type="Object" />
+    <aura:attribute name="newContactError" type="String" />
+    <force:recordData 
+        aura:id="service" 
+        layoutType="FULL"
+        targetRecord="{!v.newContact}" 
+        targetFields="{!v.simpleNewContact}"
+        fields="Id,Name,Comment__c,Boat__c,Rating__c" 
+        recordUpdated="{!c.onRecordUpdated}"
+        targetError="{!v.newContactError}" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="BoatReviewAdded" type="c:BoatReviewAdded" />
+
+    <!-- Display the new contact form -->
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem padding="around-small" size="12">
+            <lightning:input aura:id="contactField" label="Tittle" value="{!v.simpleNewContact.Name}" />
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="around-small" size="12">
+            <label class="slds-form-element__label" for="input-id-01">Description:</label>
+            <lightning:inputRichText aura:id="contactField" value="{!v.simpleNewContact.Comment__c}" placeholder="Comment"
+                disabledCategories="FORMAT_FONT" />
+
+            <c:FiveStarRating value="{!v.simpleNewContact.Rating__c}" readonly="false" />
+
+        </lightning:layoutItem>
+
+        <lightning:layoutItem padding="around-small" size="12" class="center-align">
+            <lightning:button label="Submit" iconName="utility:save" iconPosition="left" onclick="{!c.onSave}" />
+        </lightning:layoutItem>
+    </lightning:layout>
+
+    <!-- Display Lightning Data Service errors -->
+    <aura:if isTrue="{!not(empty(v.newContactError))}">
+        <div class="recordError">
+            {!v.newContactError}</div>
+    </aura:if>
+
+</aura:component>

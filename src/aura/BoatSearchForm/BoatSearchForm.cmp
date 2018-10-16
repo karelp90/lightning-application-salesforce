@@ -1,0 +1,32 @@
+<aura:component controller="BoatSearchResults" implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedValue" type="String" default="all"/>
+    <aura:attribute name="idTypeSelected" type="String" default="all"/>
+    <aura:attribute name="available" type="Boolean"/>
+    
+    <aura:registerEvent name="formsubmit" type="c:FormSubmit"/>
+    <aura:handler name="init" value="{!this}" action="{!c.loadOptions}" />
+    
+    <div class="c-container">
+    <lightning:layout horizontalAlign="center">
+        <form class="slds-form--inline">            
+            <lightning:select name="mySelect" aura:id="mySelect" value="{!v.selectedValue}" onchange="{!c.onChange}">
+        			<option value="all">All Types</option> 
+        			<aura:iteration items="{!v.options}" var="item">
+            			<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+        			</aura:iteration>
+    		</lightning:select>
+            
+            <lightning:button variant="brand" label="Search" title="Search" onclick="{!c.onFormSubmit}"/>
+            <aura:if isTrue="{!v.available}">
+                <lightning:button variant="neutral" label="New" title="New" onclick='{!c.newBoat}'/>
+            </aura:if>
+            
+        </form>
+           
+	</lightning:layout>
+        
+   </div> 
+    
+    
+</aura:component>

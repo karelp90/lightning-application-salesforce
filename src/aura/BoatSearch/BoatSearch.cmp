@@ -1,0 +1,14 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+
+    <aura:handler name="formsubmit" event="c:FormSubmit" action="{!c.onFormSubmit}" />
+    <aura:registerEvent name="passIdSelected" type="c:passIdSelected" />
+
+    <lightning:card class="slds-m-bottom_medium" title="Find a Boat">
+        <c:BoatSearchForm></c:BoatSearchForm>
+    </lightning:card>
+
+    <lightning:card class="slds-m-bottom_medium" title="Matching Boats">
+        <c:BoatSearchResults></c:BoatSearchResults>
+    </lightning:card>
+
+</aura:component>

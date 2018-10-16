@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event template">
+        <aura:attribute name="coordinates" type="Object" />
+</aura:event>
